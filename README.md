@@ -72,26 +72,26 @@ Auth: send `Authorization: Bearer <token>` header (returned by `register`/`login
 ## Architecture
 ```mermaid
 flowchart LR
-  subgraph Client [Frontend (React + Apollo Client)]
+  subgraph Frontend
     UI[UI] --> AC[Apollo Client]
   end
-  subgraph Server [Backend (Express + Apollo Server)]
-    GQL[GraphQL /graphql] <--WS--> SUBS[graphql-ws]
-    GQL --> PRISMA[Prisma Client]
+  subgraph Backend
+    GQL[GraphQL /graphql]
+    SUBS[graphql-ws]
+    PRISMA[Prisma Client]
   end
   DB[(PostgreSQL)]
   AC -- HTTP --> GQL
-  SUBS <-- WS --> AC
+  AC -- WS --> SUBS
+  GQL --> PRISMA
   PRISMA --- DB
 ```
 
 ## Screenshots
-- Place screenshots in `frontend/public/` and reference them here, e.g.:
+- Place screenshots in `frontend/public/`. Replace these placeholders with your own images.
 
-```md
-![Home](frontend/public/home.png)
-![Create Post](frontend/public/create-post.png)
-```
+<img src="frontend/public/home.png" alt="Home" />
+<img src="frontend/public/create-post.png" alt="Create Post" />
 
 ## Notes
 - Tokens are stored in `localStorage` on the client and attached to HTTP and WS requests.
