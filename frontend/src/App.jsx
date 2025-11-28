@@ -4,11 +4,7 @@ import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
-
-function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("token");
-  return token ? children : <Login />;
-}
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 export default function App() {
   return (

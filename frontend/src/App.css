@@ -1,6 +1,71 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 100vw;
+  margin: 0 0;
+  padding: 14px;
+  height: fit-content;
+}
+
+header {
   padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  margin-bottom: -30px
+}
+
+.fixed-header {
+  width: 100%;
+  align-items: center;
+}
+
+a {
+  margin: 0 1.5rem;
+  color: var(--accent);
+}
+
+.motion-div {
+  font-weight: 300;
+  font-size: 20px;
+  font-family: var(--font-family);
+  color: var(--accent);
+  cursor: default;
+  margin-left: 5px;
+}
+
+.nav-header {
+  display: flex;
+}
+
+.home-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.motion-div-title {
+  font-weight: 700;
+  font-size: 9.5vw;
+  letter-spacing: 0.12rem;
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  cursor: default;
+}
+
+.motion-a {
+  margin: 0 1.2rem;
+  font-weight: 300;
+  font-size: 20px;
+  color: var(--accent);
+  position: relative;
 }

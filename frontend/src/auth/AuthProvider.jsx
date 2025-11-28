@@ -7,9 +7,8 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [authReady, setAuthReady] = useState(false); // ⭐ important
+  const [authReady, setAuthReady] = useState(false);
 
-  // Load token/user from localStorage ONCE when app starts
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
     const savedUser = localStorage.getItem("user");

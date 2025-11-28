@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from '@apollo/client/react';
 import { useNavigate } from 'react-router-dom';
@@ -31,10 +31,16 @@ export default function Register() {
         register({ variables: form });
     };
 
+    useEffect(() => {
+      if (error) {
+        window.alert(error.message);
+      }
+    }, [error]);
+
     return (
-        <div style={{ maxWidth: 400, margin: "40px auto" }}>
-          <h2>Create account</h2>
-          <form onSubmit={submit}>
+        <div style={{ maxWidth: 600, margin: "40px auto" }}>
+          <h1>Create account</h1>
+          <form onSubmit={submit} className="custom-form">
           <input
               placeholder="Name"
               type="text"
@@ -57,8 +63,6 @@ export default function Register() {
             /><br/>
 
             <button disabled={loading}>Register</button>
-
-            {error && <p style={{ color: "red" }}>{error.message}</p>}
           </form>
         </div>
     );

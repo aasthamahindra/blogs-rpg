@@ -41,32 +41,36 @@ export default function NotificationBell() {
   };
 
   return (
-    <div style={{ display: "inline-block", position: "relative", marginRight: 12 }}>
-      <button onClick={() => setOpen((v) => !v)}>
+    <div className="notif-wrapper">
+      <button className="notif-bell" onClick={() => setOpen(v => !v)}>
         🔔 {unread > 0 ? `(${unread})` : ""}
       </button>
       {open && (
-        <div style={{
-          position: "absolute", right: 0, top: "120%",
-          background: "white", border: "1px solid #ddd", width: 280, zIndex: 10
-        }}>
-          <div style={{ padding: 8, borderBottom: "1px solid #eee", display: "flex", justifyContent: "space-between" }}>
+        <div className="notif-dropdown">
+          <div className="notif-header">
             <strong>Notifications</strong>
             {unread > 0 && (
-              <button onClick={() => setItems([])} style={{ fontSize: 12 }}>Clear</button>
+              <button className="notif-clear" onClick={() => setItems([])}>
+                Clear
+              </button>
             )}
           </div>
-          <div style={{ maxHeight: 300, overflow: "auto" }}>
+
+          <div className="notif-list">
             {items.length === 0 ? (
-              <div style={{ padding: 8 }}>No new posts</div>
-            ) : items.map((n) => (
-              <div key={n.id} style={{ padding: 8, borderBottom: "1px solid #f2f2f2" }}>
-                <div style={{ fontWeight: 500 }}>{n.title || n.content?.slice(0, 40) || "New post"}</div>
-                <div style={{ fontSize: 12, color: "#666" }}>
-                  by {n.author?.name || "Unknown"} — {formatDateYMDHMS(n.createdAt)}
+              <div className="notif-empty">No new posts</div>
+            ) : (
+              items.map(n => (
+                <div key={n.id} className="notif-item">
+                  <div className="notif-title">
+                    {n.title || n.content?.slice(0, 40) || "New post"}
+                  </div>
+                  <div className="notif-meta">
+                    by {n.author?.name || "Unknown"} — {formatDateYMDHMS(n.createdAt)}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       )}

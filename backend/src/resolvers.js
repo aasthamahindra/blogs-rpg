@@ -41,6 +41,15 @@ export default {
 
     Mutation: {
         register: async (_, { name, email, password }) => {
+            if (!name) {
+                throw new Error('Name is required!')
+            }
+            if (!email) {
+                throw new Error('Email is required!')
+            }
+            if (!password) {
+                throw new Error('Password is required!')
+            }
             const userEmail = await prisma.user.findUnique({ where: { email }});
             if (userEmail) {
                 throw new Error('User already exists!')
@@ -54,6 +63,12 @@ export default {
         },
 
         login: async (_, { email, password }) => {
+            if (!email) {
+                throw new Error('Email is required!')
+            }
+            if (!password) {
+                throw new Error('Password is required!')
+            }
             const user = await prisma.user.findUnique({ where: { email }});
             if (!user) throw new Error ('No user found!');
             const valid = await bcrypt.compare(password, user.password);

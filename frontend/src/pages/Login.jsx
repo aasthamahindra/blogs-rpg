@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from '@apollo/client/react';
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth/AuthProvider";
 
 const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
@@ -17,25 +18,30 @@ const LOGIN = gql`
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login: loginToContext } = useContext(AuthContext);
   const [form, setForm] = useState({ email: "", password: "" });
 
-  const [login, { loading, error }] = useMutation(LOGIN, {
+  const [loginMutation, { loading, error }] = useMutation(LOGIN, {
     onCompleted: (data) => {
-      localStorage.setItem("token", data.login.token);
+      loginToContext(data.login.token, data.login.user);
       navigate("/");
     },
   });
 
   const submit = (e) => {
     e.preventDefault();
-    login({ variables: form });
+    loginMutation({ variables: form });
   };
+
+  useEffect(() => {
+    if (error) window.alert(error.message);
+  }, [error]);
 
   return (
     <div style={{ maxWidth: 400, margin: "40px auto" }}>
-      <h2>Login</h2>
+      <h1>Welcome Back!</h1>
 
-      <form onSubmit={submit}>
+      <form onSubmit={submit} className="custom-form">
         <input
           placeholder="Email"
           type="email"
@@ -51,8 +57,6 @@ export default function Login() {
         /><br/>
 
         <button disabled={loading}>Login</button>
-
-        {error && <p style={{ color: "red" }}>{error.message}</p>}
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client/react";
+import { useQuery } from "@apollo/client/react"
 import { Link } from "react-router-dom";
 
 const GET_POSTS = gql`
@@ -17,19 +17,6 @@ const GET_POSTS = gql`
   }
 `;
 
-function formatDateYMDHMS(input) {
-  const d = new Date(input);
-  if (isNaN(d.getTime())) return input;
-  const pad = (n) => String(n).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  const MM = pad(d.getMonth() + 1);
-  const dd = pad(d.getDate());
-  const HH = pad(d.getHours());
-  const mm = pad(d.getMinutes());
-  const ss = pad(d.getSeconds());
-  return `${yyyy}-${MM}-${dd} ${HH}-${mm}-${ss}`;
-}
-
 const POST_CREATED_SUB = gql`
   subscription {
     postCreated {
@@ -41,6 +28,15 @@ const POST_CREATED_SUB = gql`
     }
   }
 `;
+
+function formatDateYMDHMS(input) {
+  const d = new Date(input);
+  if (isNaN(d.getTime())) return input;
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(
+    d.getHours()
+  )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
 
 export default function Feed() {
   const { data, loading, error, subscribeToMore } = useQuery(GET_POSTS);
@@ -58,26 +54,28 @@ export default function Feed() {
     return () => unsub();
   }, [subscribeToMore]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
+  if (loading) return <p className="loading-text">Loading...</p>;
+  if (error) return <p className="error-text">Error loading feed!</p>;
 
   return (
-    <div style={{ maxWidth: 600, margin: "30px auto" }}>
-      <h2>Feed</h2>
-      <Link to="/create-post">+ Create New Post</Link>
+    <div className="feed-container container">
+      <div className="feed-header">
+        <Link to="/create-post" className="create-post-btn">
+          + Create New Post
+        </Link>
+      </div>
 
-      <div style={{ marginTop: 20 }}>
+      <div className="posts-list">
         {data.posts.map((p) => (
-          <div key={p.id} style={{
-            border: "1px solid #ddd",
-            padding: 12,
-            marginBottom: 10
-          }}>
-            {p.title && <h4 style={{ margin: "0 0 6px" }}>{p.title}</h4>}
-            <p>{p.content}</p>
-            <small>
-              by {p.author.name} — {formatDateYMDHMS(p.createdAt)}
-            </small>
+          <div key={p.id} className="post-card">
+            {p.title && <h3 className="post-title">{p.title}</h3>}
+
+            <p className="post-content">{p.content}</p>
+
+            <div className="post-meta">
+              <span className="post-author">{p.author.name}</span>
+              <span className="post-date">{formatDateYMDHMS(p.createdAt)}</span>
+            </div>
           </div>
         ))}
       </div>
