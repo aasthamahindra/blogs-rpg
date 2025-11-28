@@ -66,18 +66,20 @@ export default function Feed() {
       </div>
 
       <div className="posts-list">
-        {data.posts.map((p) => (
-          <div key={p.id} className="post-card">
-            {p.title && <h3 className="post-title">{p.title}</h3>}
-
-            <p className="post-content">{p.content}</p>
-
-            <div className="post-meta">
-              <span className="post-author">{p.author.name}</span>
-              <span className="post-date">{formatDateYMDHMS(p.createdAt)}</span>
+        {data.posts && data.posts.length > 0 ? (
+          data.posts.map((p) => (
+            <div key={p.id} className="post-card">
+              {p.title && <h3 className="post-title">{p.title}</h3>}
+              <p className="post-content">{p.content}</p>
+              <div className="post-meta">
+                <span className="post-author">{p.author.name}</span>
+                <span className="post-date">{formatDateYMDHMS(p.createdAt)}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <h1 className="no-posts-text">No Posts Available</h1>
+        )}
       </div>
     </div>
   );
