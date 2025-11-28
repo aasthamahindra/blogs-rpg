@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import Post from "./pages/Post";
 
 export default function App() {
   return (
@@ -23,6 +24,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/post/:id"
+          element={
+            <ProtectedRoute>
+              <Post />
             </ProtectedRoute>
           }
         />

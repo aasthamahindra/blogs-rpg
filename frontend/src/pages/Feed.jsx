@@ -67,16 +67,23 @@ export default function Feed() {
 
       <div className="posts-list">
         {data.posts && data.posts.length > 0 ? (
-          data.posts.map((p) => (
-            <div key={p.id} className="post-card">
-              {p.title && <h3 className="post-title">{p.title}</h3>}
-              <p className="post-content">{p.content}</p>
-              <div className="post-meta">
-                <span className="post-author">{p.author.name}</span>
-                <span className="post-date">{formatDateYMDHMS(p.createdAt)}</span>
-              </div>
-            </div>
-          ))
+          data.posts.map((p) => {
+            const preview = p.content && p.content.length > 180 ? p.content.slice(0, 180) + "..." : p.content;
+            return (
+              <Link
+                key={p.id}
+                to={`/post/${p.id}`}
+                className="post-card post-link"
+              >
+                {p.title && <h3 className="post-title">{p.title}</h3>}
+                <p className="post-content">{preview}</p>
+                <div className="post-meta">
+                  <span className="post-author">{p.author.name}</span>
+                  <span className="post-date">{formatDateYMDHMS(p.createdAt)}</span>
+                </div>
+              </Link>
+            );
+          })
         ) : (
           <h1 className="no-posts-text">No Posts Available</h1>
         )}

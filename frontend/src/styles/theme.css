@@ -250,6 +250,7 @@ a:hover {
   font-size: 15px;
   font-weight: 500;
   transition: 0.2s ease;
+  margin-top: 20px;
 }
 
 .create-post-btn:hover {
@@ -271,6 +272,7 @@ a:hover {
   box-shadow: 0 4px 14px rgba(0,0,0,0.06);
   animation: fadeIn 0.25s ease;
   transition: 0.2s ease;
+  height: 100%;
 }
 
 .post-card:hover {
@@ -378,6 +380,54 @@ a:hover {
 .custom-form button:disabled {
   background: var(--text-muted);
   cursor: not-allowed;
+}
+
+.post-card-fullscreen {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 60px 80px;
+  margin: 0;
+  background: white;
+  box-shadow: none;
+  border-radius: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.post-card-full {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  animation: fadeIn 0.25s ease;
+}
+
+.post-title-full {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: var(--secondary);
+}
+
+.post-content-full {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-main);
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .post-card-full {
+    padding: 24px;
+  }
+
+  .post-title-full {
+    font-size: 32px;
+  }
+
+  .post-content-full {
+    font-size: 16px;
+  }
 }
 
 
