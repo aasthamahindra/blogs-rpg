@@ -70,8 +70,6 @@ GraphQL subscriptions (WS): ws://localhost:4000/graphql
 Auth: send `Authorization: Bearer <token>` header (returned by `register`/`login`).
 
 ## Screenshots
-- Place screenshots in `frontend/public/`. Replace these placeholders with your own images.
-
 <img src="frontend/public/home.png" alt="Home" />
 <img src="frontend/public/create-post.png" alt="Create Post" />
 
