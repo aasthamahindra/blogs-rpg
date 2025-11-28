@@ -69,24 +69,6 @@ GraphQL subscriptions (WS): ws://localhost:4000/graphql
 
 Auth: send `Authorization: Bearer <token>` header (returned by `register`/`login`).
 
-## Architecture
-```mermaid
-flowchart LR
-  subgraph Frontend
-    UI[UI] --> AC[Apollo Client]
-  end
-  subgraph Backend
-    GQL[GraphQL /graphql]
-    SUBS[graphql-ws]
-    PRISMA[Prisma Client]
-  end
-  DB[(PostgreSQL)]
-  AC -- HTTP --> GQL
-  AC -- WS --> SUBS
-  GQL --> PRISMA
-  PRISMA --- DB
-```
-
 ## Screenshots
 - Place screenshots in `frontend/public/`. Replace these placeholders with your own images.
 
