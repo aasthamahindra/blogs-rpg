@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import { useNavigate } from "react-router-dom";
@@ -50,6 +50,10 @@ export default function CreatePost() {
 
     createPost({ variables: { title, content } });
   };
+
+  useEffect(() => {
+    if (error) window.alert(error.message);
+  }, [error]);
 
   return (
   <div className="form-card">

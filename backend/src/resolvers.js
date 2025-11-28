@@ -78,6 +78,12 @@ export default {
         },
 
         createPost: async (_, { title, content }, context) => {
+            if (!title) {
+                throw new Error('Title is required!')
+            }
+            if (!content) {
+                throw new Error('Content is required!')
+            }
             const { user } = context;
             if (!user) throw new Error('Not authenticated');
             const post = await prisma.post.create({
