@@ -19,12 +19,28 @@ const CREATE_POST = gql`
   }
 `;
 
+const GET_POSTS = gql`
+  query GetPosts {
+    posts {
+      id
+      title
+      content
+      createdAt
+      author {
+        name
+      }
+    }
+  }
+`;
+
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST, {
+    refetchQueries: [{ query: GET_POSTS }],
+    awaitRefetchQueries: true,
     onCompleted: () => navigate("/"),
   });
 
